@@ -11,4 +11,4 @@ x = trainData.drop(['meal','id','DateTime'], axis=1)
 
 model = XGBClassifier(n_estimators=50, max_depth=3,learning_rate=0.5, objective='multi:softmax')
 # Fit to our training split
-#modelFit = model.fit(x, y)
+modelFit = model.fit(x, y)
