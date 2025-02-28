@@ -1,6 +1,6 @@
+# Import pandas and our model
+from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier as RF
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # Load training data, then separate x and y variables
@@ -9,7 +9,7 @@ y = trainData['meal']
 x = trainData.drop(['meal','id','DateTime'], axis=1)
 
 # Create the model and fit it
-model = RF(n_estimators=100, n_jobs=-1, max_depth=5)
+model = DecisionTreeClassifier(max_depth=5)
 modelFit = model.fit(x, y)
 
 # Load test data, then separate x and y variables
@@ -18,4 +18,4 @@ y = testData['meal']
 x = testData.drop(['meal','id','DateTime'], axis=1)
 
 # Test our model using the testing data
-pred = modelFit.predict(x)
+pred = model.predict(x)
