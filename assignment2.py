@@ -18,4 +18,4 @@ y = testData['meal']
 x = testData.drop(['meal','id','DateTime'], axis=1)
 
 # Test our model using the testing data
-pred = model.predict(x)
+pred = modelFit.predict(x)
