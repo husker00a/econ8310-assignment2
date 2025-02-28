@@ -14,8 +14,7 @@ modelFit = model.fit(x, y)
 
 # Load test data, then separate x and y variables
 testData = pd.read_csv("https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/assignment3test.csv")
-y = testData['meal']
 x = testData.drop(['meal','id','DateTime'], axis=1)
 
 # Test our model using the testing data
-pred = model.predict(x)
+pred = modelFit.predict(x)
