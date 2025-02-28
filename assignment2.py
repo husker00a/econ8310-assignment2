@@ -1,6 +1,7 @@
-# Import pandas and our model
-from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
+import numpy as np
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # Load training data, then separate x and y variables
@@ -8,14 +9,6 @@ trainData = pd.read_csv("https://github.com/dustywhite7/Econ8310/raw/master/Assi
 y = trainData['meal']
 x = trainData.drop(['meal','id','DateTime'], axis=1)
 
-# Create the model and fit it
-model = DecisionTreeClassifier(max_depth=5)
-modelFit = model.fit(x, y)
-
-# Load test data, then separate x and y variables
-testData = pd.read_csv("https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/assignment3test.csv")
-y = testData['meal']
-x = testData.drop(['meal','id','DateTime'], axis=1)
-
-# Test our model using the testing data
-pred = model.predict(x)
+model = XGBClassifier(n_estimators=50, max_depth=3,learning_rate=0.5, objective='multi:softmax')
+# Fit to our training split
+#modelFit = model.fit(x, y)
