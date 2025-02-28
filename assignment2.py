@@ -1,20 +1,22 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier as RF
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+import numpy as np
 
-# Load training data, then separate x and y variables
 trainData = pd.read_csv("https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/assignment3.csv")
-y = trainData['meal']
-x = trainData.drop(['meal','id','DateTime'], axis=1)
 
-# Create the model and fit it
-model = RF(n_estimators=100, n_jobs=-1, max_depth=5)
-modelFit = model.fit(x, y)
+# Upper case before split, lower case after
+Y = trainData['meal']
+# make sure you drop a column with the axis=1 argument
+X = trainData.drop(['meal','id','DateTime'], axis=1) 
 
-# Load test data, then separate x and y variables
+from xgboost import XGBClassifier
+model = XGBClassifier(n_estimators=50,max_depth=4,learning_rate=0.5,objective="binary:logistic")
+
+# Fit to our training split
+modelFit = model.fit(X, Y)
+
+#Test Data
 testData = pd.read_csv("https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/assignment3test.csv")
-x = testData.drop(['meal','id','DateTime'], axis=1)
+xt = testData.drop(['meal','id','DateTime'], axis=1) 
 
-# Test our model using the testing data
-pred = modelFit.predict(x)
+# Make predictions based on the testing x values
+pred = model.predict(xt)
